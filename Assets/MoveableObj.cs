@@ -16,6 +16,9 @@ public class MoveableObj : MonoBehaviour
     private bool MouseInRange;
 
     [SerializeField]
+    private Vector2 MouseOffset;
+
+    [SerializeField]
     private bool IsClick;
 
     private Animator animator;
@@ -38,7 +41,7 @@ public class MoveableObj : MonoBehaviour
     {
         if (IsClick)
         {
-            this.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            this.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) + MouseOffset;
         }
     }
 
@@ -67,6 +70,7 @@ public class MoveableObj : MonoBehaviour
     {
         if (this.MouseInRange)
         {
+            MouseOffset = this.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (!IsClick)
             {
                 animator.speed = 0;
