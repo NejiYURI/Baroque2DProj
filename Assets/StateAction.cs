@@ -5,12 +5,18 @@ using UnityEngine;
 public class StateAction : StateMachineBehaviour
 {
     public bool IsPerfectTime;
+
+    public bool TriggerChecking;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (animator.gameObject.GetComponent<MoveableObj>() != null)
         {
             animator.gameObject.GetComponent<MoveableObj>().SetIsPerfectTime(IsPerfectTime);
+            if (TriggerChecking)
+            {
+                animator.gameObject.GetComponent<MoveableObj>().CheckIsCorrect();
+            }
         }
     }
 

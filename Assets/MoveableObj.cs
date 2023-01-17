@@ -1,11 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
+
+[System.Serializable]
+public class MovePos
+{
+    public MovePos()
+    {
+
+    }
+
+    public MovePos(Transform i_pos, bool i_istarget)
+    {
+        Pos = i_pos;
+        IsTarget = i_istarget;
+    }
+
+    public Transform Pos;
+    public bool IsTarget;
+}
 
 public class MoveableObj : MonoBehaviour
 {
     public Transform StartPos;
-    public Transform OtherPos;
+    public List<MovePos> OtherPos;
+    [SerializeField]
+    private MovePos CurPos;
+
+    public string TriggerObgjId;
 
     public bool PerfectTime;
 
@@ -25,11 +49,17 @@ public class MoveableObj : MonoBehaviour
 
     private void Start()
     {
+        CurPos = new MovePos();
         if (StartPos != null)
         {
             this.transform.position = StartPos.position;
+            CurPos = new MovePos(StartPos, false);
         }
         animator = GetComponent<Animator>();
+        if (GameEventManager._eventManager != null)
+        {
+            GameEventManager._eventManager.StageClear.AddListener(StageClear);
+        }
     }
 
     public void SetIsPerfectTime(bool i_val)
@@ -49,11 +79,12 @@ public class MoveableObj : MonoBehaviour
     {
         if (InRange && PerfectTime)
         {
-            this.transform.position = OtherPos.position;
+            this.transform.position = CurPos.Pos.position;
         }
         else
         {
             this.transform.position = StartPos.position;
+            CurPos = new MovePos(StartPos, false);
         }
     }
 
@@ -85,18 +116,36 @@ public class MoveableObj : MonoBehaviour
         IsClick = false;
     }
 
+    void StageClear()
+    {
+        animator.speed = 0;
+    }
+
+    public void CheckIsCorrect()
+    {
+        if (CurPos.IsTarget)
+        {
+            if (GameEventManager._eventManager != null)
+            {
+                GameEventManager._eventManager.ActionTrigger.Invoke(TriggerObgjId);
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform == OtherPos)
+        if (OtherPos.Where(x => x.Pos == collision.transform).Count() > 0)
         {
+            CurPos = OtherPos.Where(x => x.Pos == collision.transform).First();
             InRange = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.transform == OtherPos)
+        if (OtherPos.Where(x => x.Pos == collision.transform).Count() > 0)
         {
+            CurPos = new MovePos();
             InRange = false;
         }
     }

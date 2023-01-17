@@ -13,4 +13,6 @@ public class GameEventManager : MonoBehaviour
     }
 
     public UnityEvent<string> ActionTrigger;
+
+    public UnityEvent StageClear;
 }

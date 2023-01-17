@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPerfectTime: 1
+  TriggerChecking: 0
 --- !u!1102 &-1864856632401678007
 AnimatorState:
   serializedVersion: 6
@@ -228,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPerfectTime: 0
+  TriggerChecking: 1
 --- !u!1101 &4913956493565022541
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

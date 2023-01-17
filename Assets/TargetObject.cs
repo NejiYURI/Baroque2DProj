@@ -14,7 +14,7 @@ public class TargetObject : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (GameEventManager._eventManager != null)
         {
-
+            GameEventManager._eventManager.ActionTrigger.AddListener(changeSprite);
         }
     }
 
@@ -30,5 +30,9 @@ public class TargetObject : MonoBehaviour
     IEnumerator countDownTimer()
     {
         yield return new WaitForSeconds(2);
+        if (GameEventManager._eventManager != null)
+        {
+            GameEventManager._eventManager.StageClear.Invoke();
+        }
     }
 }
