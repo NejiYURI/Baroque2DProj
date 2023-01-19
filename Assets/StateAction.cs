@@ -18,6 +18,14 @@ public class StateAction : StateMachineBehaviour
                 animator.gameObject.GetComponent<MoveableObj>().CheckIsCorrect();
             }
         }
+        else if(animator.gameObject.GetComponentInParent<MoveableObj>() != null)
+        {
+            animator.gameObject.GetComponentInParent<MoveableObj>().SetIsPerfectTime(IsPerfectTime);
+            if (TriggerChecking)
+            {
+                animator.gameObject.GetComponentInParent<MoveableObj>().CheckIsCorrect();
+            }
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

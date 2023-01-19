@@ -20,16 +20,17 @@ public class MovePos
 
     public Transform Pos;
     public bool IsTarget;
+
+    public string TriggerId;
 }
 
 public class MoveableObj : MonoBehaviour
 {
+    public Animator animator;
     public Transform StartPos;
     public List<MovePos> OtherPos;
     [SerializeField]
     private MovePos CurPos;
-
-    public string TriggerObgjId;
 
     public bool PerfectTime;
 
@@ -45,7 +46,7 @@ public class MoveableObj : MonoBehaviour
     [SerializeField]
     private bool IsClick;
 
-    private Animator animator;
+   
 
     private void Start()
     {
@@ -55,7 +56,7 @@ public class MoveableObj : MonoBehaviour
             this.transform.position = StartPos.position;
             CurPos = new MovePos(StartPos, false);
         }
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         if (GameEventManager._eventManager != null)
         {
             GameEventManager._eventManager.StageClear.AddListener(StageClear);
@@ -123,11 +124,11 @@ public class MoveableObj : MonoBehaviour
 
     public void CheckIsCorrect()
     {
-        if (CurPos.IsTarget)
+        if (!string.IsNullOrEmpty(CurPos.TriggerId))
         {
             if (GameEventManager._eventManager != null)
             {
-                GameEventManager._eventManager.ActionTrigger.Invoke(TriggerObgjId);
+                GameEventManager._eventManager.ActionTrigger.Invoke(CurPos.TriggerId);
             }
         }
     }

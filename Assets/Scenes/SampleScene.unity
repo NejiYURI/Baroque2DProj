@@ -570,14 +570,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7612901d83bcb8544965da4c79efd175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1002408450}
   StartPos: {fileID: 1973734179}
   OtherPos:
   - Pos: {fileID: 1730289921}
     IsTarget: 1
+    TriggerId: Melon
   CurPos:
     Pos: {fileID: 0}
     IsTarget: 0
-  TriggerObgjId: Melon
+    TriggerId: 
   PerfectTime: 0
   InRange: 0
   MouseInRange: 0
