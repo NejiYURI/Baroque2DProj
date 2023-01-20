@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class MainGameController : MonoBehaviour
 {
     public GameObject StageClearPanel;
+    [SerializeField]
+    private bool ShowHint;
     private void Start()
     {
         if (GameEventManager._eventManager != null)
@@ -29,5 +31,14 @@ public class MainGameController : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ToggleHint()
+    {
+        if (GameEventManager._eventManager != null)
+        {
+            ShowHint = !ShowHint;
+            GameEventManager._eventManager.HintToggle.Invoke(ShowHint);
+        }
     }
 }

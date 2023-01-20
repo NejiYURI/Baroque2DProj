@@ -15,4 +15,16 @@ public class GameEventManager : MonoBehaviour
     public UnityEvent<string> ActionTrigger;
 
     public UnityEvent StageClear;
+
+    public UnityEvent<bool> HintToggle;
+
+    public UnityEvent MouseEnter;
+
+    public UnityEvent MouseExit;
+
+    public UnityEvent MouseDown;
+
+    public UnityEvent MouseUp;
+
+    public UnityEvent MouseDrag;
 }

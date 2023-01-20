@@ -29,6 +29,8 @@ public class MoveableObj : MonoBehaviour
     public Animator animator;
     public Transform StartPos;
     public List<MovePos> OtherPos;
+
+    public GameObject MouseUI;
     [SerializeField]
     private MovePos CurPos;
 
@@ -46,7 +48,7 @@ public class MoveableObj : MonoBehaviour
     [SerializeField]
     private bool IsClick;
 
-   
+
 
     private void Start()
     {
@@ -60,6 +62,23 @@ public class MoveableObj : MonoBehaviour
         if (GameEventManager._eventManager != null)
         {
             GameEventManager._eventManager.StageClear.AddListener(StageClear);
+        }
+        if (MouseUI != null)
+        {
+            MouseUI.SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            PlayAnimation();
+            
+        }
+        if (MouseUI != null)
+        {
+            MouseUI.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
     }
 
@@ -87,15 +106,27 @@ public class MoveableObj : MonoBehaviour
             this.transform.position = StartPos.position;
             CurPos = new MovePos(StartPos, false);
         }
+        if (GameEventManager._eventManager != null)
+        {
+            GameEventManager._eventManager.MouseUp.Invoke();
+        }
     }
 
     private void OnMouseEnter()
     {
         this.MouseInRange = true;
+        if (GameEventManager._eventManager != null)
+        {
+            GameEventManager._eventManager.MouseEnter.Invoke();
+        }
     }
     private void OnMouseExit()
     {
         this.MouseInRange = false;
+        if (GameEventManager._eventManager != null)
+        {
+            GameEventManager._eventManager.MouseExit.Invoke();
+        }
     }
 
     private void OnMouseDown()
@@ -107,14 +138,27 @@ public class MoveableObj : MonoBehaviour
             {
                 animator.speed = 0;
                 IsClick = true;
+                if (MouseUI != null)
+                {
+                    MouseUI.SetActive(true);
+                }
+                if (GameEventManager._eventManager != null)
+                {
+                    GameEventManager._eventManager.MouseDown.Invoke();
+                }
             }
         }
+
     }
 
     public void PlayAnimation()
     {
         animator.speed = 1;
         IsClick = false;
+        if (MouseUI != null)
+        {
+            MouseUI.SetActive(false);
+        }
     }
 
     void StageClear()
