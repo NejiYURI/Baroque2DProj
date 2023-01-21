@@ -142,13 +142,13 @@ public class MoveableObj : MonoBehaviour
                 {
                     MouseUI.SetActive(true);
                 }
-                if (GameEventManager._eventManager != null)
-                {
-                    GameEventManager._eventManager.MouseDown.Invoke();
-                }
+                
             }
         }
-
+        if (GameEventManager._eventManager != null)
+        {
+            GameEventManager._eventManager.MouseDown.Invoke();
+        }
     }
 
     public void PlayAnimation()
