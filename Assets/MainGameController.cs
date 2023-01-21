@@ -16,7 +16,7 @@ public class MainGameController : MonoBehaviour
         }
         if (StageClearPanel != null)
         {
-            StageClearPanel.transform.LeanScale(Vector3.zero,0);
+            StageClearPanel.transform.LeanScale(Vector3.zero, 0);
         }
     }
 
@@ -31,6 +31,11 @@ public class MainGameController : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void NextScene()
+    {
+        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % 2);
     }
 
     public void ToggleHint()

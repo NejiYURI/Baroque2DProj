@@ -22,16 +22,16 @@ public class CursorManager : MonoBehaviour
 
     private void MouseDownFunc()
     {
-        Cursor.SetCursor(Select, new Vector2(25,25), CursorMode.Auto);
+        Cursor.SetCursor(Select, new Vector2(25,25), CursorMode.ForceSoftware);
     }
 
     private void MouseUpFunc()
     {
-        Cursor.SetCursor(Normal, new Vector2(10, 10), CursorMode.Auto);
+        Cursor.SetCursor(Normal, new Vector2(10, 10), CursorMode.ForceSoftware);
     }
 
     private void MouseDragFunc()
     {
-        Cursor.SetCursor(Hold, new Vector2(25, 25), CursorMode.Auto);
+        Cursor.SetCursor(Hold, new Vector2(25, 25), CursorMode.ForceSoftware);
     }
 }
