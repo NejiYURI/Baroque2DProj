@@ -35,7 +35,7 @@ public class MainGameController : MonoBehaviour
 
     public void NextScene()
     {
-        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % 2);
+        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % 3);
     }
 
     public void ToggleHint()

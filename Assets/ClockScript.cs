@@ -23,6 +23,7 @@ public class ClockScript : MonoBehaviour
         {
             GameEventManager._eventManager.ActionTrigger.AddListener(ClockStop);
             GameEventManager._eventManager.ActionTrigger.AddListener(ClockFly);
+            GameEventManager._eventManager.ActionTrigger.AddListener(ClockCrash);
         }
     }
     void ClockStop(string objId)
@@ -42,6 +43,15 @@ public class ClockScript : MonoBehaviour
             animator.SetTrigger("ClockStop");
             rg.AddForce(new Vector2(1000f, 500f));
             rg.AddTorque(100);
+            StartCoroutine(countDownTimer());
+        }
+    }
+
+    void ClockCrash(string objId)
+    {
+        if (objId.Equals(ClockCrashedId))
+        {
+            animator.SetTrigger("ClockStop");
             StartCoroutine(countDownTimer());
         }
     }
